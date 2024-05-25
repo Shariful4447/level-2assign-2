@@ -32,35 +32,35 @@ export const createProduct = async (
   }
 };
 
-// export const getAllProducts = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   try {
-//     const { searchTerm } = req.query;
-//     const result = await getProductsFromDB(searchTerm as string | undefined);
+export const getAllProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { searchTerm } = req.query;
+    const result = await getProductsFromDB(searchTerm as string | undefined);
 
-//     if (result.length === 0) {
-//       const error = new Error();
-//       error.name = "not-found";
-//       error.message = "No products found!";
-//       throw error;
-//     }
+    if (result.length === 0) {
+      const error = new Error();
+      error.name = "not-found";
+      error.message = "No products found!";
+      throw error;
+    }
 
-//     const message = searchTerm
-//       ? `Products matching search term '${searchTerm}' fetched successfully!`
-//       : "Products fetched successfully!";
+    const message = searchTerm
+      ? `Products matching search term '${searchTerm}' fetched successfully!`
+      : "Products fetched successfully!";
 
-//     res.send({
-//       success: true,
-//       message,
-//       data: result,
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+    res.send({
+      success: true,
+      message,
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const getProductById = async (
   req: Request,
