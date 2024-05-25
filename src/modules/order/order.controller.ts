@@ -28,12 +28,12 @@ export const cerateOrder = async (
       throw error;
     }
 
-    // // check if the product is in stock
-    // if (product.inventory.inStock === false) {
-    //   const error = new Error();
-    //   error.message = 'Insufficient quantity available in inventory!';
-    //   throw error;
-    // }
+    // check if the product is in stock
+    if (product.inventory.inStock === false) {
+      const error = new Error();
+      error.message = "Insufficient quantity available in inventory!";
+      throw error;
+    }
 
     if (zodParsedData.quantity > product.inventory.quantity) {
       const error = new Error();
