@@ -1,17 +1,17 @@
-import { NextFunction, Request, Response } from 'express';
-import { createOrderIntoDB, getOrdersFromDB } from './order.service';
-import mongoose from 'mongoose';
+import { NextFunction, Request, Response } from "express";
+import { createOrderIntoDB, getOrdersFromDB } from "./order.service";
+import mongoose from "mongoose";
 import {
   getProductByIdFromDB,
   updateProductByIdIntoDB,
-} from '../product/product.service';
-import { orderValidationSchema } from './order.validation';
-import { IOrder } from './order.interface';
+} from "../product/product.service";
+import { orderValidationSchema } from "./order.validation";
+import { IOrder } from "./order.interface";
 
 export const cerateOrder = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const req_data: IOrder = req.body;
@@ -23,17 +23,17 @@ export const cerateOrder = async (
     const product = await getProductByIdFromDB(product_id);
     if (!product) {
       const error = new Error();
-      error.name = 'not-found';
-      error.message = 'The product you are trying to order does not exist!';
+      error.name = "not-found";
+      error.message = "The product you are trying to order does not exist!";
       throw error;
     }
 
-    // check if the product is in stock
-    if (product.inventory.inStock === false) {
-      const error = new Error();
-      error.message = 'Insufficient quantity available in inventory!';
-      throw error;
-    }
+    // // check if the product is in stock
+    // if (product.inventory.inStock === false) {
+    //   const error = new Error();
+    //   error.message = 'Insufficient quantity available in inventory!';
+    //   throw error;
+    // }
 
     if (zodParsedData.quantity > product.inventory.quantity) {
       const error = new Error();
@@ -55,7 +55,7 @@ export const cerateOrder = async (
 
     res.send({
       success: true,
-      message: 'Order created successfully!',
+      message: "Order created successfully!",
       data: result,
     });
   } catch (error) {
@@ -66,7 +66,7 @@ export const cerateOrder = async (
 export const getAllOrders = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const { email } = req.query;
@@ -74,14 +74,14 @@ export const getAllOrders = async (
 
     if (result.length === 0) {
       const error = new Error();
-      error.name = 'not-found';
-      error.message = 'No orders found!';
+      error.name = "not-found";
+      error.message = "No orders found!";
       throw error;
     }
 
     const message = email
-      ? 'Orders fetched successfully for user email!'
-      : 'Orders fetched successfully!';
+      ? "Orders fetched successfully for user email!"
+      : "Orders fetched successfully!";
 
     res.send({
       success: true,
