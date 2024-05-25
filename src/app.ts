@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { MovieRoute } from "./modules/movies/movie.routes";
+
 import { productRoute } from "./modules/product/product.route";
 import { orderRoute } from "./modules/order/order.route";
 const app = express();
@@ -7,7 +7,7 @@ const port = 3000;
 
 //parser json
 app.use(express.json());
-app.use("/api/movies", MovieRoute);
+
 app.use("/api/products", productRoute);
 app.use("/api/orders", orderRoute);
 
