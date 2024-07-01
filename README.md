@@ -18,3 +18,4 @@ npm run start:dev
 ```
 
 4. Then check the connection and api with postman call.
+5. Call the Api to manipulate the data.
